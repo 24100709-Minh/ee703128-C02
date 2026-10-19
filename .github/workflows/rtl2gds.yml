@@ -1,4 +1,4 @@
-name: RTL to GDSII
+name: RTL-to-GDSII (LibreLane + sky130A)
 
 on:
   push:
@@ -23,4 +23,5 @@ jobs:
           MA_DE: "C02"
           DESIGN_NAME: "saturating_clamp"
         run: |
+          echo "Running RTL-to-GDSII flow with LibreLane and sky130A..."
           python .github/doc_metrics.py
