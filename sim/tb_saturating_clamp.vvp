@@ -1,0 +1,82 @@
+#! /usr/bin/vvp
+:ivl_version "12.0 (stable)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision - 12;
+:vpi_module "/usr/lib/x86_64-linux-gnu/ivl/system.vpi";
+:vpi_module "/usr/lib/x86_64-linux-gnu/ivl/vhdl_sys.vpi";
+:vpi_module "/usr/lib/x86_64-linux-gnu/ivl/vhdl_textio.vpi";
+:vpi_module "/usr/lib/x86_64-linux-gnu/ivl/v2005_math.vpi";
+:vpi_module "/usr/lib/x86_64-linux-gnu/ivl/va_math.vpi";
+S_0x5608725e8820 .scope module, "tb_saturating_clamp" "tb_saturating_clamp" 2 3;
+ .timescale -9 -12;
+v0x5608726057a0_0 .var "ui_in", 7 0;
+v0x560872605880_0 .var "uio_in", 7 0;
+v0x560872605920_0 .net "uio_out0", 0 0, L_0x560872605f90;  1 drivers
+v0x5608726059c0_0 .net "uo_out", 7 0, L_0x560872605e20;  1 drivers
+S_0x5608725e89b0 .scope module, "u_dut" "saturating_clamp" 2 12, 3 1 0, S_0x5608725e8820;
+ .timescale 0 0;
+    .port_info 0 /INPUT 8 "ui_in";
+    .port_info 1 /INPUT 8 "uio_in";
+    .port_info 2 /OUTPUT 8 "uo_out";
+    .port_info 3 /OUTPUT 1 "uio_out0";
+L_0x560872605a60 .functor BUFZ 8, v0x560872605880_0, C4<00000000>, C4<00000000>, C4<00000000>;
+L_0x560872605f90 .functor OR 1, L_0x560872605b00, L_0x560872605c40, C4<0>, C4<0>;
+L_0x7a4d02b86018 .functor BUFT 1, C4<00010000>, C4<0>, C4<0>, C4<0>;
+v0x5608725e8b90_0 .net "TH_LOWER", 7 0, L_0x7a4d02b86018;  1 drivers
+v0x560872605050_0 .net "TH_UPPER", 7 0, L_0x560872605a60;  1 drivers
+v0x560872605130_0 .net *"_ivl_8", 7 0, L_0x560872605d30;  1 drivers
+v0x5608726051f0_0 .net "over_flow", 0 0, L_0x560872605c40;  1 drivers
+v0x5608726052b0_0 .net "ui_in", 7 0, v0x5608726057a0_0;  1 drivers
+v0x5608726053e0_0 .net "uio_in", 7 0, v0x560872605880_0;  1 drivers
+v0x5608726054c0_0 .net "uio_out0", 0 0, L_0x560872605f90;  alias, 1 drivers
+v0x560872605580_0 .net "under_flow", 0 0, L_0x560872605b00;  1 drivers
+v0x560872605640_0 .net "uo_out", 7 0, L_0x560872605e20;  alias, 1 drivers
+L_0x560872605b00 .cmp/gt 8, L_0x7a4d02b86018, v0x5608726057a0_0;
+L_0x560872605c40 .cmp/gt 8, v0x5608726057a0_0, L_0x560872605a60;
+L_0x560872605d30 .functor MUXZ 8, v0x5608726057a0_0, L_0x560872605a60, L_0x560872605c40, C4<>;
+L_0x560872605e20 .functor MUXZ 8, L_0x560872605d30, L_0x7a4d02b86018, L_0x560872605b00, C4<>;
+    .scope S_0x5608725e8820;
+T_0 ;
+    %vpi_call 2 21 "$dumpfile", "sim/tb_saturating_clamp.vcd" {0 0 0};
+    %vpi_call 2 22 "$dumpvars", 32'sb00000000000000000000000000000000, S_0x5608725e8820 {0 0 0};
+    %pushi/vec4 208, 0, 8;
+    %store/vec4 v0x560872605880_0, 0, 8;
+    %vpi_call 2 27 "$display", "=== BAT DAU KIEM THU BO KEP SATURATING CLAMP ===" {0 0 0};
+    %pushi/vec4 5, 0, 8;
+    %store/vec4 v0x5608726057a0_0, 0, 8;
+    %delay 10000, 0;
+    %vpi_call 2 31 "$display", "[TC1] Input=0x%02h | Upper=0x%02h | Output=0x%02h (Exp: 0x10) | Flag=%b (Exp: 1)", v0x5608726057a0_0, v0x560872605880_0, v0x5608726059c0_0, v0x560872605920_0 {0 0 0};
+    %pushi/vec4 16, 0, 8;
+    %store/vec4 v0x5608726057a0_0, 0, 8;
+    %delay 10000, 0;
+    %vpi_call 2 35 "$display", "[TC2] Input=0x%02h | Upper=0x%02h | Output=0x%02h (Exp: 0x10) | Flag=%b (Exp: 0)", v0x5608726057a0_0, v0x560872605880_0, v0x5608726059c0_0, v0x560872605920_0 {0 0 0};
+    %pushi/vec4 96, 0, 8;
+    %store/vec4 v0x5608726057a0_0, 0, 8;
+    %delay 10000, 0;
+    %vpi_call 2 39 "$display", "[TC3] Input=0x%02h | Upper=0x%02h | Output=0x%02h (Exp: 0x60) | Flag=%b (Exp: 0)", v0x5608726057a0_0, v0x560872605880_0, v0x5608726059c0_0, v0x560872605920_0 {0 0 0};
+    %pushi/vec4 208, 0, 8;
+    %store/vec4 v0x5608726057a0_0, 0, 8;
+    %delay 10000, 0;
+    %vpi_call 2 43 "$display", "[TC4] Input=0x%02h | Upper=0x%02h | Output=0x%02h (Exp: 0xD0) | Flag=%b (Exp: 0)", v0x5608726057a0_0, v0x560872605880_0, v0x5608726059c0_0, v0x560872605920_0 {0 0 0};
+    %pushi/vec4 240, 0, 8;
+    %store/vec4 v0x5608726057a0_0, 0, 8;
+    %delay 10000, 0;
+    %vpi_call 2 47 "$display", "[TC5] Input=0x%02h | Upper=0x%02h | Output=0x%02h (Exp: 0xD0) | Flag=%b (Exp: 1)", v0x5608726057a0_0, v0x560872605880_0, v0x5608726059c0_0, v0x560872605920_0 {0 0 0};
+    %pushi/vec4 0, 0, 8;
+    %store/vec4 v0x5608726057a0_0, 0, 8;
+    %delay 10000, 0;
+    %vpi_call 2 51 "$display", "[TC6] Input=0x%02h | Upper=0x%02h | Output=0x%02h (Exp: 0x10) | Flag=%b (Exp: 1)", v0x5608726057a0_0, v0x560872605880_0, v0x5608726059c0_0, v0x560872605920_0 {0 0 0};
+    %pushi/vec4 255, 0, 8;
+    %store/vec4 v0x5608726057a0_0, 0, 8;
+    %delay 10000, 0;
+    %vpi_call 2 55 "$display", "[TC7] Input=0x%02h | Upper=0x%02h | Output=0x%02h (Exp: 0xD0) | Flag=%b (Exp: 1)", v0x5608726057a0_0, v0x560872605880_0, v0x5608726059c0_0, v0x560872605920_0 {0 0 0};
+    %vpi_call 2 57 "$display", "=== HOAN THANH MO PHONG ===" {0 0 0};
+    %vpi_call 2 58 "$finish" {0 0 0};
+    %end;
+    .thread T_0;
+# The file index is used to find the file name in the following table.
+:file_names 4;
+    "N/A";
+    "<interactive>";
+    "tb/tb_saturating_clamp.v";
+    "rtl/saturating_clamp.v";
