@@ -1,25 +1,17 @@
-module saturating_clamp (
-    input  wire [7:0] ui_in,       // Mẫu dữ liệu đầu vào (8-bit)
-    input  wire [7:0] uio_in,      // Ngưỡng trên (8-bit)
-    output wire [7:0] uo_out,      // Mẫu dữ liệu đã kẹp (8-bit)
-    output wire       uio_out0     // Cờ báo bị kẹp (1-bit)
+module c02_core (
+    input  logic [7:0] sample_in,
+    input  logic [7:0] min_val,
+    input  logic [7:0] max_val,
+    output logic [7:0] clamped_out
 );
-
-    // Ngưỡng dưới cố định (16 thập phân = 8'h10)
-    wire [7:0] TH_LOWER = 8'h10;
-    
-    // Ngưỡng trên lấy từ uio_in
-    wire [7:0] TH_UPPER = uio_in;
-
-    // Tín hiệu so sánh điều kiện biên
-    wire under_flow = (ui_in < TH_LOWER);
-    wire over_flow  = (ui_in > TH_UPPER);
-
-    // Mux chọn giá trị ngõ ra
-    assign uo_out = under_flow ? TH_LOWER :
-                    over_flow  ? TH_UPPER : ui_in;
-
-    // Cờ kẹp: bằng 1 nếu nhỏ hơn ngưỡng dưới HOẶC lớn hơn ngưỡng trên
-    assign uio_out0 = under_flow | over_flow;
-
+    always_comb begin
+        if (min_val > max_val)
+            clamped_out = min_val;  // Xử lý cấu hình không hợp lệ
+        else if (sample_in < min_val)
+            clamped_out = min_val;  // Kẹp dưới
+        else if (sample_in > max_val)
+            clamped_out = max_val;  // Kẹp trên
+        else
+            clamped_out = sample_in; // Giữ nguyên giá trị trong dải an toàn
+    end
 endmodule
