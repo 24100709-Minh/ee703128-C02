@@ -1,3 +1,28 @@
+// --- Mô hình tham chiếu (Reference Model) ---
+module c02_reference (
+    input  logic [7:0] sample_in,
+    input  logic [7:0] min_val,
+    input  logic [7:0] max_val,
+    output logic [7:0] clamped_ref,
+    output logic       config_error_ref
+);
+    always_comb begin
+        if (min_val > max_val) begin
+            config_error_ref = 1'b1;
+            clamped_ref      = sample_in;
+        end else begin
+            config_error_ref = 1'b0;
+            if (sample_in < min_val)
+                clamped_ref = min_val;
+            else if (sample_in > max_val)
+                clamped_ref = max_val;
+            else
+                clamped_ref = sample_in;
+        end
+    end
+endmodule
+
+// --- Testbench chính ---
 module c02_core_tb;
     logic [7:0] sample_in, min_val, max_val;
     logic [7:0] clamped_out;
@@ -12,7 +37,7 @@ module c02_core_tb;
         .clamped_out(clamped_out)
     );
 
-    // Kết nối Reference Model (đã được định nghĩa sẵn trong hệ thống build)
+    // Kết nối Reference Model
     c02_reference ref_i(
         .sample_in(sample_in),
         .min_val(min_val),
