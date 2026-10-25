@@ -12,7 +12,7 @@ module c02_core_tb;
         .clamped_out(clamped_out)
     );
 
-    // Kết nối Reference Model (đã có sẵn trong hệ thống build)
+    // Kết nối Reference Model (đã được định nghĩa sẵn trong hệ thống build)
     c02_reference ref_i(
         .sample_in(sample_in),
         .min_val(min_val),
