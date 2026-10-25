@@ -1,4 +1,3 @@
-// --- Testbench chính (Đã loại bỏ khai báo trùng lặp c02_reference) ---
 module c02_core_tb;
     logic [7:0] sample_in, min_val, max_val;
     logic [7:0] clamped_out;
@@ -13,7 +12,7 @@ module c02_core_tb;
         .clamped_out(clamped_out)
     );
 
-    // Kết nối Reference Model (đã được định nghĩa ở file nguồn khác trong repo)
+    // Kết nối Reference Model (đã có sẵn trong hệ thống build)
     c02_reference ref_i(
         .sample_in(sample_in),
         .min_val(min_val),
