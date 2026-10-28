@@ -1,0 +1,31 @@
+{
+  "project_id": "C02",
+  "title": "Bộ kẹp giá trị bão hoà (saturating clamp) 8-bit",
+  "group": "C · Ngưỡng, cảnh báo và giám sát",
+  "difficulty": "Trung bình (nhẹ)",
+  "circuit_type": "Tổ hợp",
+  "charter_scale": "~150–210 cell · 1×1 tile",
+  "top_module": "c02_core",
+  "clock_port": null,
+  "has_clock": false,
+  "expected_ff_zero": true,
+  "technology": "sky130A",
+  "std_cell_library": "sky130_fd_sc_hd",
+  "liberty_corner": "tt_025C_1v80",
+  "flow": "LibreLane/OpenROAD",
+  "measured": {
+    "sim": "PASS",
+    "pyref": "PASS",
+    "synth": "PASS",
+    "sta": "PASS",
+    "cells": 94,
+    "flip_flops": 0,
+    "area_um2": 435.68,
+    "critical_path_ns": 3.2,
+    "startpoint": "ui_in[7:0]",
+    "endpoint": "uo_out[7:0]",
+    "power_total_w": "1.25e-05"
+  },
+  "not_run": [],
+  "source_dir_origin": "C02_FINAL_MENTOR_PACKAGE_v1_0"
+}
