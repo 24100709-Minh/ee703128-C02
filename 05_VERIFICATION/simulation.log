@@ -1,0 +1,2 @@
+C02 core verification PASS
+05_VERIFICATION/testbench/c02_core_tb.sv:59: $finish called at 29453 (1s)
